@@ -85,14 +85,17 @@ if (PLATFORM_OS_MACOS)
     platforms/macos/MacOSLocker.cc
     platforms/macos/MacOSDock.mm
     platforms/macos/MenuRoleUtils.cc
-    #platforms/macos/MacOSAppletWindow.cc
-    #platforms/macos/MacOSStatusBarView.mm
-    #platforms/macos/MacOSTimeBar.mm
+    platforms/macos/MacOSAppletWindow.cc
+    platforms/macos/MacOSStatusBarView.mm
+    platforms/macos/MacOSTimeBar.mm
    )
 
   set_source_files_properties(Locale.cc
                               platforms/macos/MacOSLocker.cc
                               platforms/macos/MacOSDock.mm
+                              platforms/macos/MacOSAppletWindow.cc
+                              platforms/macos/MacOSStatusBarView.mm
+                              platforms/macos/MacOSTimeBar.mm
                               PROPERTIES COMPILE_FLAGS "-x objective-c++ -fobjc-arc")
 
   target_include_directories(workrave-app PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/platforms/macos)
