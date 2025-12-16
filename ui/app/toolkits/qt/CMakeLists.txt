@@ -96,9 +96,14 @@ target_include_directories(workrave-toolkit-qt
 
 target_link_directories(workrave-toolkit-qt PRIVATE
   ${Boost_LIBRARIES_DIRS}
-  ${X11_X11_INCLUDE_PATH}
-  ${X11_INCLUDE_PATH}
-  ${X11_INCLUDE_PATH})
+  )
+
+if (PLATFORM_OS_UNIX)
+  target_link_directories(workrave-toolkit-qt PRIVATE
+    ${X11_X11_INCLUDE_PATH}
+    ${X11_INCLUDE_PATH}
+    ${X11_INCLUDE_PATH})
+endif()
 
 target_link_libraries(workrave-toolkit-qt PRIVATE
   workrave-app
@@ -115,10 +120,14 @@ target_link_libraries(workrave-toolkit-qt PRIVATE
   Qt${QT_VERSION_MAJOR}::Svg
   Qt${QT_VERSION_MAJOR}::Xml
   ${LIBINTL_LIBRARIES}
-  ${EXTRA_LIBRARIES}
-  ${X11_X11_LIB}
-  ${X11_Xtst_LIB}
-  ${X11_Xss_LIB})
+  ${EXTRA_LIBRARIES})
+
+if (PLATFORM_OS_UNIX)
+  target_link_libraries(workrave-toolkit-qt PRIVATE
+    ${X11_X11_LIB}
+    ${X11_Xtst_LIB}
+    ${X11_Xss_LIB})
+endif()
 
 if (HAVE_GLIB)
   target_include_directories(workrave-toolkit-qt PRIVATE ${GLIB_INCLUDE_DIRS})

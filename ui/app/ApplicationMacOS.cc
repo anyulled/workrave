@@ -20,7 +20,14 @@
 #endif
 
 #include "ApplicationMacOS.hh"
+#include "platforms/macos/MenuRoleUtils.hh"
 #include "commonui/MenuDefs.hh"
+#include "commonui/MenuModel.hh"
+#include "utils/Signals.hh"
+
+#include <QAction>
+#include <QApplication>
+#include <QCoreApplication>
 
 ApplicationMacOS::ApplicationMacOS(int argc, char **argv, std::shared_ptr<IToolkitFactory> toolkit_factory)
   : Application(argc, argv, toolkit_factory)
@@ -30,9 +37,25 @@ ApplicationMacOS::ApplicationMacOS(int argc, char **argv, std::shared_ptr<IToolk
 void
 ApplicationMacOS::init_platform_pre()
 {
+  if (auto model = get_menu_model())
+    {
+      workrave::utils::connect(model->signal_update(), this, [this] { apply_standard_menu_roles(); });
+    }
 }
 
 void
 ApplicationMacOS::init_platform_post()
 {
+  apply_standard_menu_roles();
+
+  dock = std::make_shared<MacOSDock>(get_application_context());
+}
+
+void
+ApplicationMacOS::apply_standard_menu_roles()
+{
+  if (auto *qt_app = qobject_cast<QApplication *>(QCoreApplication::instance()); qt_app != nullptr)
+    {
+      macos::apply_standard_menu_roles(qt_app->findChildren<QAction *>());
+    }
 }

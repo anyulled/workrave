@@ -24,6 +24,8 @@
 #include "ToolkitMenu.hh"
 #include "commonui/MenuModel.hh"
 
+#include <QString>
+
 using namespace detail;
 
 ToolkitMenu::ToolkitMenu(MenuModel::Ptr menu_model, MenuNodeFilter filter)
@@ -176,6 +178,7 @@ ToolkitActionMenuEntry::ToolkitActionMenuEntry(ToolkitMenuContext::Ptr context,
   if (!filter || filter(node))
     {
       action = new QAction(node->get_dynamic_text_no_accel().c_str(), this);
+      action->setData(QString::fromStdString(node->get_id()));
       connect(action, &QAction::triggered, [=](bool checked) { node->activate(); });
     }
 }
@@ -199,6 +202,7 @@ ToolkitToggleMenuEntry::ToolkitToggleMenuEntry(ToolkitMenuContext::Ptr context,
       action = new QAction(node->get_dynamic_text_no_accel().c_str(), this);
       action->setCheckable(true);
       action->setChecked(node->is_checked());
+      action->setData(QString::fromStdString(node->get_id()));
 
       connect(action, &QAction::triggered, [=](bool checked) { node->activate(checked); });
 
@@ -228,6 +232,7 @@ ToolkitRadioMenuEntry::ToolkitRadioMenuEntry(ToolkitMenuContext::Ptr context,
       action = new QAction(node->get_dynamic_text_no_accel().c_str(), this);
       action->setCheckable(true);
       action->setChecked(node->is_checked());
+      action->setData(QString::fromStdString(node->get_id()));
 
       connect(action, &QAction::triggered, [=](bool checked) { node->activate(); });
 

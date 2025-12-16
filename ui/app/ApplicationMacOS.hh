@@ -32,6 +32,8 @@ public:
   void init_platform_post() override;
 
 private:
+  void apply_standard_menu_roles();
+
   std::shared_ptr<MacOSDock> dock;
 };
 
