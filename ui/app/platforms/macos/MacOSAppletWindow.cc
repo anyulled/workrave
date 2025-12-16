@@ -18,6 +18,8 @@
 #  include "config.h"
 #endif
 
+#include <memory>
+
 #include "commonui/nls.h"
 //#include "commonui/Text.hh"
 #include "debug.hh"
@@ -31,8 +33,7 @@ MacOSAppletWindow::MacOSAppletWindow(std::shared_ptr<IApplicationContext> app)
   : app(app)
 {
   TRACE_ENTRY();
-  timer_box_view = this;
-  timer_box_control = new TimerBoxControl(app, "applet", *this);
+  timer_box_control = std::make_unique<TimerBoxControl>(app, "applet", *this);
 
   NSMenu *menu = [[NSMenu alloc] init];
   view = [[MacOSStatusBarView alloc] initWithMenu:menu];
@@ -55,7 +56,6 @@ MacOSAppletWindow::MacOSAppletWindow(std::shared_ptr<IApplicationContext> app)
 MacOSAppletWindow::~MacOSAppletWindow()
 {
   TRACE_ENTRY();
-  delete timer_box_control;
 }
 
 void
@@ -110,4 +110,16 @@ bool
 MacOSAppletWindow::is_visible() const
 {
   return true;
+}
+
+void
+MacOSAppletWindow::set_icon(OperationModeIcon /*icon*/)
+{
+  // Status bar icon handling is driven by the native status item view.
+}
+
+void
+MacOSAppletWindow::update_view()
+{
+  // Updates are driven by timer box callbacks; nothing to do here for now.
 }

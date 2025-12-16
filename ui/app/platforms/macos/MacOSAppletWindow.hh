@@ -18,20 +18,20 @@
 #ifndef MACOSAPPLETWINDOW_HH
 #define MACOSAPPLETWINDOW_HH
 
+#include <memory>
 #include <string>
 
 #include "ui/ITimerBoxView.hh"
 #include "ui/UiTypes.hh"
 #include "ui/IApplicationContext.hh"
-#include "AppletWindow.hh"
+#include "ui/TimerBoxControl.hh"
 
 #import "ColorId.h"
 
 @class MacOSStatusBarView;
 
 class MacOSAppletWindow
-  : public AppletWindow
-  , public ITimerBoxView
+  : public ITimerBoxView
 {
 public:
   MacOSAppletWindow(std::shared_ptr<IApplicationContext> app);
@@ -48,11 +48,14 @@ public:
                     TimerColorId secondary_color,
                     int secondary_value,
                     int secondary_max) override;
+  void set_icon(OperationModeIcon icon) override;
+  void update_view() override;
 
 private:
   std::shared_ptr<IApplicationContext> app;
   ColorId convertColorId(TimerColorId colorId);
   MacOSStatusBarView *view;
+  std::unique_ptr<TimerBoxControl> timer_box_control;
 };
 
 #endif // MACOSAPPLETWINDOW_HH
