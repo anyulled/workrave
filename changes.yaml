@@ -1,5 +1,14 @@
 ---
 releases:
+  - version: 1.11.0-rc.3
+    date: 2025-11-25T18:26:24+01:00
+    short: |-
+      Workrave 1.11.0-rc.3 has been released.
+    changes:
+      - |-
+        Bug fixes:
+        - Fix high DPI fractional scaling on Windows
+
   - version: 1.11.0-rc.2
     date: 2025-11-23T00:00:00+02:00
     short: |-
@@ -19,6 +28,7 @@ releases:
         - Handle screen lock shortcut during breaks under Xorg
         - Add high DPI support on Windows (#650, Charlie Lin)
         - Use Gnome Shell extension to display prelude windows (#621)
+        - It is no longer required to accept the GPL license on installation on Windows (#648)
       - |-
         Bug fixes:
         - Fix crash when monitor is powered off (#606)
