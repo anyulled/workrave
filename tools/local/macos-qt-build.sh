@@ -90,6 +90,16 @@ run_app() {
 
 main() {
   ensure_macos
+  # Attempt to configure Qt environment if not already set
+  if [[ -z "${CMAKE_PREFIX_PATH:-}" ]] && command -v brew >/dev/null 2>&1; then
+    local qt_prefix
+    qt_prefix=$(brew --prefix qt@6 2>/dev/null)
+    if [[ -n "${qt_prefix}" && -d "${qt_prefix}" ]]; then
+      echo "[info] Automatically setting Qt environment from Homebrew"
+      export CMAKE_PREFIX_PATH="${qt_prefix}"
+      export PATH="${qt_prefix}/bin:$PATH"
+    fi
+  fi
 
   local build_dir="build-macos-qt"
   local build_type="Release"
