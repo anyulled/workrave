@@ -84,6 +84,7 @@ if (PLATFORM_OS_MACOS)
     ApplicationMacOS.cc
     platforms/macos/MacOSLocker.cc
     platforms/macos/MacOSDock.mm
+    platforms/macos/MenuRoleUtils.cc
     #platforms/macos/MacOSAppletWindow.cc
     #platforms/macos/MacOSStatusBarView.mm
     #platforms/macos/MacOSTimeBar.mm
@@ -292,5 +293,9 @@ if (PLATFORM_OS_WINDOWS)
 endif()
 
 install(TARGETS workrave RUNTIME DESTINATION ${BINDIR} BUNDLE DESTINATION .)
+
+if (HAVE_TESTS AND WITH_UI_QT)
+  add_subdirectory(test)
+endif()
 
 add_subdirectory(toolkits)

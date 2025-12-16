@@ -69,6 +69,9 @@ public:
   virtual void init_platform_pre() = 0;
   virtual void init_platform_post() = 0;
 
+protected:
+  auto get_application_context() const -> std::shared_ptr<IApplicationContext> { return context; }
+
   // IApp methods
   void create_prelude_window(workrave::BreakId break_id) override;
   void create_break_window(workrave::BreakId break_id, workrave::utils::Flags<workrave::BreakHint> break_hint) override;
