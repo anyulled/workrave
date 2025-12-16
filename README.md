@@ -36,6 +36,10 @@ To make timers visible you need to explicitly add Workrave applet to a panel. In
 
 Have a look at the [contrib](./contrib) directory to get a little insight into the different scripting possibilities!
 
+### macOS Qt build
+
+Step-by-step instructions for configuring, building, and packaging the Qt-based macOS application bundle are available in [docs/macos.md](docs/macos.md). A helper script (`tools/local/macos-qt-build.sh`) automates configuring, building, and optional packaging/running on macOS.
+
 ### Unix/Linux
 
 - Workrave uses [dconf](https://wiki.gnome.org/Projects/dconf) to store its configuration.
